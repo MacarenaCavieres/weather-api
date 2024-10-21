@@ -34,7 +34,7 @@ export const useWeather = () => {
         setWeather(initialState);
 
         try {
-            const apiCall = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${apikey}`;
+            const apiCall = `https://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${apikey}`;
 
             const { data } = await axios.get(apiCall);
 
