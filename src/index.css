@@ -9,7 +9,7 @@ html {
 
 body {
     font-family: "Poppins", sans-serif;
-    background-image: radial-gradient(#000000ea, #00000081), url("./bg-clima.png");
+    background-image: radial-gradient(#000000ea, #00000081), url("/bg-clima.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
