@@ -1,7 +1,7 @@
 import axios from "axios";
 import { SearchType } from "../types";
 import { z } from "zod";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const Weather = z.object({
     name: z.string(),
@@ -25,6 +25,7 @@ const initialState = {
 
 export const useWeather = () => {
     const [weather, setWeather] = useState<Weather>(initialState);
+    const [notFound, setNotFound] = useState(false);
 
     const fetchAPI = async (search: SearchType) => {
         const apikey = import.meta.env.VITE_API_KEY;
@@ -35,6 +36,7 @@ export const useWeather = () => {
             const { data } = await axios.get(apiCall);
 
             if (!data[0]) {
+                setNotFound(true);
                 return;
             }
 
@@ -57,8 +59,12 @@ export const useWeather = () => {
         }
     };
 
+    const hasWeatherData = useMemo(() => weather.name, [weather]);
+
     return {
+        notFound,
         fetchAPI,
         weather,
+        hasWeatherData,
     };
 };
