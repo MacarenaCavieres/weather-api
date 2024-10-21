@@ -16,18 +16,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Asegúrate de usar una versión compatible
+          node-version: '18'
 
       - name: Install dependencies
         run: npm install
 
       - name: Build project
         env:
-          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}  # Aquí se inyecta tu API Key desde los secretos
+          VITE_API_KEY: ${{ secrets.VITE_API_KEY }}  # Inyecta la API key
         run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # Token para desplegar en GitHub Pages
-          publish_dir: ./dist  # Directorio de salida del build
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Asegúrate de usar el token de GitHub
+          publish_dir: ./dist  # Carpeta a desplegar
