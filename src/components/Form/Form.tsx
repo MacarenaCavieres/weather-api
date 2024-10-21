@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { countries } from "../../data/countries";
 import styles from "./Form.module.css";
 import { SearchType } from "../../types";
+import Alert from "../../Alert/Alert";
 
 type FetchAPIProps = {
     fetchAPI: (search: SearchType) => Promise<void>;
@@ -12,6 +13,7 @@ export default function Form({ fetchAPI }: FetchAPIProps) {
         city: "",
         country: "",
     });
+    const [alert, setAlert] = useState("");
 
     const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
         setSearch({
@@ -22,11 +24,23 @@ export default function Form({ fetchAPI }: FetchAPIProps) {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (Object.values(search).includes("")) {
+            setAlert("Todos los campos son obligatorios");
+            return;
+        }
+
         fetchAPI(search);
+
+        setSearch({
+            city: "",
+            country: "",
+        });
     };
 
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
+            {alert && <Alert>{alert}</Alert>}
             <div className={styles.field}>
                 <label htmlFor="city">Ciudad</label>
                 <input
