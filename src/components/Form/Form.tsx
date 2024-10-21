@@ -3,7 +3,11 @@ import { countries } from "../../data/countries";
 import styles from "./Form.module.css";
 import { SearchType } from "../../types";
 
-export default function Form() {
+type FetchAPIProps = {
+    fetchAPI: (search: SearchType) => Promise<void>;
+};
+
+export default function Form({ fetchAPI }: FetchAPIProps) {
     const [search, setSearch] = useState<SearchType>({
         city: "",
         country: "",
@@ -18,7 +22,7 @@ export default function Form() {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(search);
+        fetchAPI(search);
     };
 
     return (
